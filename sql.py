@@ -1,4 +1,5 @@
 import psycopg2
+import pandas as pd
 
 
 def connect():
@@ -15,7 +16,7 @@ def create_tables():
     connection = connect()
 
     tb_user = '''CREATE TABLE IF NOT EXISTS tb_user
-                        (usuario    VARCHAR(20),
+                        (id_user    VARCHAR(20),
                         senha       VARCHAR(12),
                         CONSTRAINT pk_tb_user PRIMARY KEY(usuario)
                         );
@@ -55,34 +56,14 @@ def insert_data(table, values):
     connection = connect()
     cur = connection.cursor()
 
-    if (table == "tb_user"):
-        tb_user = '''INSERT INTO tb_user (usuario, senha)
-                    VALUES ('{}', '{}');'''.format(
-                        values[0], 
-                        values[1])
-        cur.execute(tb_user)
-    
-    elif (table == "tb_clientes"):
-        tb_clientes = '''INSERT INTO tb_clientes
-                    VALUES ('{}', '{}', '{}', '{}', '{}');'''.format(
-                    values[0],
-                    values[1],
-                    values[2],
-                    values[3],
-                    values[4])
-        cur.execute(tb_clientes)
-    
-    elif (table == "tb_produtos"):
-        tb_produtos = '''INSERT INTO tb_produtos
-                    VALUES ({}, {}, {}, {}, {});'''.format(
-                    values[0],
-                    values[1],
-                    values[2],
-                    values[3],
-                    values[4])
-        cur.execute(tb_produtos)
+    sql = ""
+    sql = '''INSERT INTO {} VALUES ('''.format(table)
+    for i in values:
+        sql += ''' '{}', '''.format(i)
+    sql = sql[:-2]
+    sql += ");"
 
-
+    cur.execute(sql)
 
     connection.commit()
     connection.close()
@@ -90,29 +71,26 @@ def insert_data(table, values):
 
 	# Insert data into table
 
-
-
-	
-
-
 def select_data(table, columns = "*"):
     connection = connect()
 
+    #baixar valores do banco de dados
+    sql = '''select {} from {} ;'''.format(columns, table)
+
+    df = pd.read_sql_query(sql,connection)
+    print(df)
+
+    
+def delete_data(table, ID):
+    connection = connect()
     cur = connection.cursor()
 
-    #baixar valores do banco de dados
-    sql = "SELECT {} FROM {}".format(table, columns)
+    id = 'id_' + table.split("_")[1]
+    id="usuario"
+    sql = '''DELETE FROM {} WHERE {} = '{}' ;'''.format(table, id, ID)
 
-    cur.execute(sql)
-    records = cur.fetchall()
+    cur.execute(cur.mogrify(sql))
+    connection.commit()
+    connection.close()
 
-    output = ''
-
-    # for record in records:
-    #     output_label.config(text=f'{output}\n{record[0]} {record[1]}')
-    #     output = output_label['text']
-
-dados = [2, 3, 1, 2, 3]
-
-# create_tables()
-insert_data("tb_clientes", dados)
+    select_data(table)
