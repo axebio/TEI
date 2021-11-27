@@ -8,7 +8,7 @@ from sobre_page import *
 from menu_produto import *
 from menu_vendas import *
 from menu import *
-# from sql import create_tables
+from import_csv import *
 import os
 
 
@@ -40,7 +40,8 @@ class App(tk.Tk):
                     menu_clientes, 
                     menu_produtos, 
                     menu_funcionarios, 
-                    menu_vendas):
+                    menu_vendas,
+                    import_csv):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame

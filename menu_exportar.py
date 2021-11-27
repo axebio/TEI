@@ -25,10 +25,10 @@ out_file = open("output.json", "w", encoding= "utf-8")
 for i in range(len(df)):
     json.dump(pd.DataFrame.to_json(df[i]), out_file, indent= 4)
     f = df[i].reset_index().to_json(orient= 'records')
-    with zp.ZipFile("compressed_data.zip", mode= "a" , compression=zp.ZIP_DEFLATED, compresslevel=9) as zip_file: 
-        dumped_JSON: str = json.dumps(f, ensure_ascii=False, indent=4)
+    with zp.ZipFile("output.zip", mode= "a" , compression=zp.ZIP_DEFLATED, compresslevel=9) as zip_file: 
+        dp_JSON: str = json.dumps(f, ensure_ascii=False, indent=4)
 
-        zip_file.writestr("{}.json".format(tabelas[i]), data=dumped_JSON)
+        zip_file.writestr("{}.json".format(tabelas[i]), data=dp_JSON)
 
         zip_file.testzip()
 

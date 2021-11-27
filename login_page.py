@@ -48,6 +48,6 @@ class login_page(tk.Frame):
                             text="Registrar",
                             width= 15,
                             height= 2,
-                            command=lambda: controller.show_frame(create_tables()))
+                            command= lambda: controller.show_frame("import_csv"))
 
         bt_registrar.pack(pady= 10)

@@ -80,7 +80,6 @@ def select_data(table, columns = "*"):
     df = pd.read_sql_query(sql,connection)
     return df
 
-    
 def delete_data(table, ID):
     connection = connect()
     cur = connection.cursor()
