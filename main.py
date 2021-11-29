@@ -4,11 +4,14 @@ from menu_func import *
 from menu_principal import *
 from menu_cliente import *
 from login_page import *
+from reg_user import reg_user
 from sobre_page import *
 from menu_produto import *
 from menu_vendas import *
 from menu import *
 from import_csv import *
+from cli_delete import *
+from cli_cadastro import *
 import os
 
 
@@ -41,7 +44,11 @@ class App(tk.Tk):
                     menu_produtos, 
                     menu_funcionarios, 
                     menu_vendas,
-                    import_csv):
+                    import_csv,
+                    cli_consulta,
+                    cli_delete,
+                    cli_cadastro,
+                    reg_user):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame

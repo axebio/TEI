@@ -1,5 +1,7 @@
+from pandas.io import sql
 import psycopg2
 import pandas as pd
+import tkinter as tk
 
 
 def connect():
@@ -16,30 +18,30 @@ def create_tables():
     connection = connect()
 
     tb_user = '''CREATE TABLE IF NOT EXISTS tb_user
-                        (id_user    VARCHAR(20),
+                        (id_user     VARCHAR(20),
                         senha       VARCHAR(12),
-                        CONSTRAINT pk_tb_user PRIMARY KEY(usuario)
+                        CONSTRAINT pk_tb_user PRIMARY KEY(id_user)
                         );
                         '''
 
 
     tb_clientes = '''CREATE TABLE IF NOT EXISTS tb_clientes
-                        (id_cliente             NUMERIC(5),
+                        (id_clientes            INTEGER,
                         nome_cliente            VARCHAR(20),
-                        tel_cliente             NUMERIC(11),
+                        tel_cliente             VARCHAR(11),
                         email_cliente           VARCHAR(30),
                         end_cliente             VARCHAR(50),
-                        CONSTRAINT pk_tb_cliente PRIMARY KEY(id_cliente)
+                        CONSTRAINT pk_tb_clientes PRIMARY KEY(id_clientes)
                         );
                         '''
 
     tb_produtos = '''CREATE TABLE IF NOT EXISTS tb_produtos
-                        (id_prod                     NUMERIC(5),
-                        nome_prod                    VARCHAR(30),
-                        p_compra_prod                NUMERIC(5),
-                        p_venda_prod                 NUMERIC(5),
-                        quant_prod                   NUMERIC(4),
-                        CONSTRAINT pk_tb_produtos PRIMARY KEY(id_prod)
+                        (id_produtos                     INTEGER,
+                        nome_prod                        VARCHAR(30),
+                        p_compra_prod                    VARCHAR(5),
+                        p_venda_prod                     VARCHAR(5),
+                        quant_prod                       VARCHAR(4),
+                        CONSTRAINT pk_tb_produtos PRIMARY KEY(id_produtos)
                         );
                         '''
 
@@ -73,23 +75,38 @@ def insert_data(table, values):
 
 def select_data(table, columns = "*"):
     connection = connect()
-
+    create_tables()
     #baixar valores do banco de dados
-    sql = '''select {} from {} ;'''.format(columns, table)
+    sql = '''SELECT {} FROM {} ;'''.format(columns, table)
 
     df = pd.read_sql_query(sql,connection)
+    connection.commit()
+    connection.close()
+
     return df
 
 def delete_data(table, ID):
     connection = connect()
     cur = connection.cursor()
-
+    
     id = 'id_' + table.split("_")[1]
-    id="usuario"
-    sql = '''DELETE FROM {} WHERE {} = '{}' ;'''.format(table, id, ID)
+    sql = '''DELETE FROM {} WHERE {} = {} '''.format(table, id, ID)
 
     cur.execute(cur.mogrify(sql))
     connection.commit()
     connection.close()
 
-    select_data(table)
+def verificar(user):
+    connection = connect()
+    create_tables()
+    #baixar valores do banco de dados
+    sql = '''SELECT senha FROM tb_user WHERE id_user = '{}';'''.format(user)
+
+    cur = connection.cursor()
+    cur.execute(sql)
+    senha = cur.fetchone()
+    senha = senha[0]
+    connection.commit()
+    connection.close()
+    return senha
+

@@ -2,6 +2,8 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import os
 
+from menu_exportar import *
+
 class menu_principal(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -50,5 +52,5 @@ class menu_principal(tk.Frame):
                                     text="EXPORTAR DADOS", 
                                     width= 100, 
                                     height= 3,
-                                    command=lambda: controller.show_frame("menu_exportar"))
+                                    command=lambda: exportar_json())
         exportar_button.pack(side = "top", padx= 20, pady= 5)

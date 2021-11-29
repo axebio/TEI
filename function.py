@@ -1,10 +1,17 @@
-from tkinter import *
+import tkinter as tk
 from typing import Container
+from cli_consulta import cli_consulta
 import login_page as lp
 import menu
+import cli_consulta
 
-def menu_(file):
-	if (file == "tela_start"):
-		return menu.menu1()
-	else:
-		return menu.menu2()
+def refresh(table):
+	Frame = tk.Frame
+	if table == "tb_user":
+		Frame = cli_consulta
+	if table == "tb_clientes":
+		Frame = cli_consulta
+	elif table == "tb_produto":
+		Frame = cli_consulta
+		Frame.destroy()
+		Frame.__init__()

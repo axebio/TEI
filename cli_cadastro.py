@@ -1,0 +1,71 @@
+import tkinter as tk
+from PIL import ImageTk, Image
+from sql import create_tables
+import os
+import sql
+import pandas as pd
+
+class cli_cadastro(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        titulo = tk.Label(self, 
+                    text="CADASTRO DE CLIENTES", 
+                    font= "Helvetica 12 bold", 
+                    justify= "left", 
+                    anchor= "w")
+        titulo.pack(side="top", pady=50)
+
+        nome = tk.Label(self, 
+                            text="Nome do cliente", 
+                            font= "Helvetica 12 bold", 
+                            justify= "left", 
+                            anchor= "w")
+        nome.pack(side="top")
+
+        campo_nome = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_nome.pack(pady= 10)
+
+
+        telefone = tk.Label(self, 
+                        text="Telefone", 
+                        font="Helvetica 12 bold", 
+                        justify= "left", 
+                        anchor= "w")
+        telefone.pack(side="top")
+
+        campo_telefone = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_telefone.pack(pady= 10)
+
+        email = tk.Label(self, 
+                text="E-Mail", 
+                font="Helvetica 12 bold", 
+                justify= "left", 
+                anchor= "w")
+        email.pack(side="top")
+
+        campo_email = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_email.pack(pady= 10)
+
+        endereco = tk.Label(self, 
+                        text="Endereço", 
+                        font="Helvetica 12 bold", 
+                        justify= "left", 
+                        anchor= "w")
+        endereco.pack(side="top")
+
+        campo_end = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_end.pack(pady= 10)
+
+        voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_clientes"))
+        voltar_button.pack(side = "bottom", padx= 20, pady= 5)
+        
+        cadastrar_button = tk.Button(self, text="CADASTRAR", width= 100, height= 3, command=lambda: sql.insert_data("tb_clientes", get_value()))
+        cadastrar_button.pack(side = "bottom", padx= 20, pady= 20)
+
+        def get_value():
+            df = sql.select_data("tb_clientes", "id_clientes")
+            value = len(df.index) + 1
+            return [value, campo_nome.get(), campo_telefone.get(), campo_email.get(), campo_end.get()]
