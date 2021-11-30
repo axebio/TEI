@@ -1,8 +1,9 @@
 import tkinter as tk
 from PIL import ImageTk, Image
+from function import refresh
 import sql
 import os
-import function as fc
+from cli_consulta import *
 
 class cli_delete(tk.Frame):
 
@@ -31,15 +32,22 @@ class cli_delete(tk.Frame):
                                 text="EXCLUIR", 
                                 width= 100, 
                                 height= 3,
-                                command=lambda: sql.delete_data("tb_clientes", str(campo_cliente.get())))
+                                command=lambda: [sql.delete_data("tb_clientes", str(campo_cliente.get())),
+                                clear_text(),
+                                cli_consulta.__init__(self, parent, controller)])
         excluir_button.pack(side = "top", padx= 20, pady= 5)
         
         consultar_button = tk.Button(self, 
                                     text="CONSULTAR", 
                                     width= 100, 
                                     height= 3,
-                                    command=lambda: [controller.show_frame("cli_consulta"), fc.refresh("tb_cliente")])
+                                    command=lambda: controller.show_frame("cli_consulta"))
         consultar_button.pack(side = "top", padx= 20, pady= 5)
 
         voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_clientes"))
         voltar_button.pack(side = "bottom", padx= 20, pady= 5)
+
+        def clear_text():
+            campos = [campo_cliente]
+            for campo in campos:
+                campo.delete(0, "end")

@@ -58,13 +58,14 @@ class App(tk.Tk):
             # will be the one that is visible.
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame("login_page")
+        self.show_frame("cli_consulta")
 
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         frame.tkraise()
 
-    
+
+
 
 if __name__ == "__main__":
     app = App()

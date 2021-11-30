@@ -90,7 +90,7 @@ def delete_data(table, ID):
     cur = connection.cursor()
     
     id = 'id_' + table.split("_")[1]
-    sql = '''DELETE FROM {} WHERE {} = {} '''.format(table, id, ID)
+    sql = '''DELETE FROM {} WHERE {} = '{}' '''.format(table, id, ID)
 
     cur.execute(cur.mogrify(sql))
     connection.commit()
@@ -110,3 +110,29 @@ def verificar(user):
     connection.close()
     return senha
 
+valor = select_data("tb_user")
+
+
+def prepara_import(table, df):
+    for i in df.itertuples(index= False, name= None):
+        insert_data(table, list(i))
+
+
+
+# list_user = [['abc', '1234'], ['acd', '1223'], ['fsafdsjk', '123123']]
+
+# df_user = pd.DataFrame(list_user, columns= ['id_user', 'senha'])
+
+# df_user.to_csv("df_user.csv", index= False)
+
+# delete_data("tb_user", 'abc')
+# delete_data("tb_user", 'acd')
+# delete_data("tb_user", 'fsafdsjk')
+
+# df_clientes = select_data("tb_clientes")
+# df_clientes.to_csv("df_clientes", index= False)
+# df_clientes.to_json("df_clientes_json.json")
+
+df_user = select_data("tb_user")
+df_user.to_json("df_user_json.json")
+df_user.to_csv("df_user_csv.csv", index= False)

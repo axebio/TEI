@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from PIL import ImageTk, Image
 from sql import create_tables
 import os
@@ -59,13 +60,16 @@ class reg_user(tk.Frame):
 
 
 
-
         def get_value():
             return [campo_user.get(), campo_senha.get(), campo_confirmar.get()]
 
         def validation():
             values = get_value()
+
             msg = ""
+
+
+
 
             if values[1] != values[2]:
                 msg = "A senhas digitadas nos dois campos não são iguais."
@@ -76,11 +80,8 @@ class reg_user(tk.Frame):
                 except:
                     msg = "Impossível cadastrar. Escolha um novo nome de usuário."
             
-            mensagem = tk.Label(self, 
-                    text= msg, 
-                    font="Helvetica 11 bold", 
-                    justify= "left", 
-                    anchor= "w")
-            mensagem.pack(side="top", pady = 30)
+
+            msgbox = messagebox.showinfo("Cadastro de usuário", msg)
+
 
             

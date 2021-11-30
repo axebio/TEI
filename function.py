@@ -4,6 +4,7 @@ from cli_consulta import cli_consulta
 import login_page as lp
 import menu
 import cli_consulta
+import sql
 
 def refresh(table):
 	Frame = tk.Frame
@@ -13,5 +14,5 @@ def refresh(table):
 		Frame = cli_consulta
 	elif table == "tb_produto":
 		Frame = cli_consulta
-		Frame.destroy()
-		Frame.__init__()
+	Frame.destroy()
+	Frame.__init__()

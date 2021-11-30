@@ -1,8 +1,10 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 import os
-
+from import_csv import import_csv
 from menu_exportar import *
+
+
 
 class menu_principal(tk.Frame):
 
@@ -54,3 +56,10 @@ class menu_principal(tk.Frame):
                                     height= 3,
                                     command=lambda: exportar_json())
         exportar_button.pack(side = "top", padx= 20, pady= 5)
+
+        importar_button = tk.Button(self, 
+                                    text="IMPORTAR DADOS", 
+                                    width= 100, 
+                                    height= 3,
+                                    command=lambda: controller.show_frame("import_csv"))
+        importar_button.pack(side = "top", padx= 20, pady= 5)

@@ -24,7 +24,7 @@ def exportar_json():
     out_file = open("output.json", "w", encoding= "utf-8")
 
     for i in range(len(df)):
-        json.dump(pd.DataFrame.to_json(df[i]), out_file, indent= 4)
+        json.dump(pd.DataFrame.to_json(df[i]), out_file, indent= 4 )
         f = df[i].reset_index().to_json(orient= 'records')
         with zp.ZipFile("output.zip", mode= "a" , compression=zp.ZIP_DEFLATED, compresslevel=9) as zip_file: 
             dp_JSON: str = json.dumps(f, ensure_ascii=False, indent=4)

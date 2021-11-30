@@ -20,7 +20,7 @@ class menu_clientes(tk.Frame):
         titulo.pack(side= "top")
 
 
-        consultar_button = tk.Button(self, text="CONSULTAR", width= 100, height= 3, command=lambda: [controller.show_frame("cli_consulta"), fc.refresh("tb_cliente")])
+        consultar_button = tk.Button(self, text="CONSULTAR", width= 100, height= 3, command=lambda: controller.show_frame("cli_consulta"))
         consultar_button.pack(side = "top", padx= 20, pady= 5)
 
         cadastrar_button = tk.Button(self, text="CADASTRAR", width= 100, height= 3, command= lambda: controller.show_frame("cli_cadastro"))

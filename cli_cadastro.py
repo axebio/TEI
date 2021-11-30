@@ -1,9 +1,12 @@
 import tkinter as tk
 from PIL import ImageTk, Image
+from cli_consulta import cli_consulta
+from function import refresh
 from sql import create_tables
 import os
 import sql
 import pandas as pd
+
 
 class cli_cadastro(tk.Frame):
 
@@ -62,10 +65,19 @@ class cli_cadastro(tk.Frame):
         voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_clientes"))
         voltar_button.pack(side = "bottom", padx= 20, pady= 5)
         
-        cadastrar_button = tk.Button(self, text="CADASTRAR", width= 100, height= 3, command=lambda: sql.insert_data("tb_clientes", get_value()))
+        cadastrar_button = tk.Button(self, text="CADASTRAR", width= 100, height= 3, 
+                                    command=lambda: [sql.insert_data("tb_clientes", get_value()), 
+                                    cli_consulta.__init__(self, parent, controller),
+                                    clear_text])
         cadastrar_button.pack(side = "bottom", padx= 20, pady= 20)
 
         def get_value():
             df = sql.select_data("tb_clientes", "id_clientes")
-            value = len(df.index) + 1
+            value = len(df.index) + 2
+            print(value)
             return [value, campo_nome.get(), campo_telefone.get(), campo_email.get(), campo_end.get()]
+
+        def clear_text():
+            campos = [campo_nome, campo_telefone, campo_email, campo_end]
+            for campo in campos:
+                campo.delete(0, "end")

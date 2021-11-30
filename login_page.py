@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from tkinter.constants import S
 from PIL import ImageTk, Image
 from sql import *
@@ -59,14 +60,9 @@ class login_page(tk.Frame):
             return [campo_user.get(), campo_senha.get()]
 
         def validation():
-            values = get_value()
+            values = get_value()  
             if verificar(values[0]) == values[1]:
                 controller.show_frame("menu_principal")
             else:
-                msg = "Usuário ou senha incorretos!"
-                mensagem = tk.Label(self, 
-                        text= msg, 
-                        font="Helvetica 11 bold", 
-                        justify= "left", 
-                        anchor= "w")
-                mensagem.pack(side="bottom", pady = 30)
+                msg = "Usuário ou senha incorretos! Insira novamente"
+                messagebox.showinfo("Erro ao acessar o sistema.", msg)
