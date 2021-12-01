@@ -46,7 +46,7 @@ def create_tables():
                         );
                         '''
 
-    tb_funcionarios = '''CREATE TABLE IF NOT EXISTS tb_produtos
+    tb_funcionarios = '''CREATE TABLE IF NOT EXISTS tb_funcionarios
                     (id_funcionarios                    SERIAL,
                     nome_func                           VARCHAR(30),
                     CPF                                 VARCHAR(11),
@@ -125,26 +125,12 @@ valor = select_data("tb_user")
 
 
 def prepara_import(table, df):
+
+    id = 'id_' + table.split("_")[1]
+    df.drop([id], axis=1)
+    df = df.set_index(df.columns[0])
     for i in df.itertuples(index= False, name= None):
         insert_data(table, list(i))
 
 
-
-# list_user = [['abc', '1234'], ['acd', '1223'], ['fsafdsjk', '123123']]
-
-# df_user = pd.DataFrame(list_user, columns= ['id_user', 'senha'])
-
-# df_user.to_csv("df_user.csv", index= False)
-
-# delete_data("tb_user", 'abc')
-# delete_data("tb_user", 'acd')
-# delete_data("tb_user", 'fsafdsjk')
-
-# df_clientes = select_data("tb_clientes")
-# df_clientes.to_csv("df_clientes", index= False)
-# df_clientes.to_json("df_clientes_json.json")
-
-# df_user = select_data("tb_user")
-# df_user.to_json("df_user_json.json")
-# df_user.to_csv("df_user_csv.csv", index= False)
 

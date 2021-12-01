@@ -27,9 +27,9 @@ class import_csv(tk.Frame):
                         font="Helvetica 10 bold", 
                         justify= "left", 
                         anchor= "w")
-        cb_label.pack(side="bottom", pady= 20)
+        cb_label.pack(side="top", pady= 20)
 
-        opcoes = ["User", "Clientes", "Produtos", "Funcionarios", "Vendas"]
+        opcoes = ["Clientes", "Produtos", "Funcionarios", "Vendas"]
 
         cb = ttk.Combobox(self, 
                             text = "Escolha o tipo de dados que deseja importar:",
@@ -103,8 +103,6 @@ class import_csv(tk.Frame):
         sql.prepara_import(escolha, df)
 
     def get_cb(self, escolha):
-        if escolha == "User":
-            return "tb_user"
         if escolha == "Clientes":
             return "tb_clientes"
         elif escolha == "Produtos":

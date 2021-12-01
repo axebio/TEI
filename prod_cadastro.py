@@ -16,13 +16,13 @@ class prod_cadastro(tk.Frame):
 
         titulo = tk.Label(self, 
                     text="CADASTRO DE PRODUTOS", 
-                    font= "Helvetica 12 bold", 
+                    font= "Helvetica 12 bold",   
                     justify= "left", 
                     anchor= "w")
         titulo.pack(side="top", pady=50)
 
         nome = tk.Label(self, 
-                            text="Nome do Produto", 
+                            text="Nome do funcionario", 
                             font= "Helvetica 12 bold", 
                             justify= "left", 
                             anchor= "w")
@@ -33,7 +33,7 @@ class prod_cadastro(tk.Frame):
 
 
         telefone = tk.Label(self, 
-                        text="Preco de Compra", 
+                        text="CPF", 
                         font="Helvetica 12 bold", 
                         justify= "left", 
                         anchor= "w")
@@ -43,7 +43,7 @@ class prod_cadastro(tk.Frame):
         campo_telefone.pack(pady= 10)
 
         email = tk.Label(self, 
-                text="Preco de Venda", 
+                text="Departamento", 
                 font="Helvetica 12 bold", 
                 justify= "left", 
                 anchor= "w")
@@ -53,7 +53,7 @@ class prod_cadastro(tk.Frame):
         campo_email.pack(pady= 10)
 
         endereco = tk.Label(self, 
-                        text="Quantidade", 
+                        text="Funcao", 
                         font="Helvetica 12 bold", 
                         justify= "left", 
                         anchor= "w")
