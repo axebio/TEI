@@ -2,6 +2,7 @@ from pandas.io import sql
 import psycopg2
 import pandas as pd
 import tkinter as tk
+from tkinter import messagebox
 
 
 def connect():
@@ -75,8 +76,14 @@ def insert_data(table, values):
         sql += ''' '{}', '''.format(values[i])
     sql = sql[:-2]
     sql += ");"
+    try:
+        cur.execute(sql)
+        msg = "Os dados foram registrados com sucesso."
+        messagebox.showinfo("Dados inseridos.", msg)
+    except:
+        msg = "Erro ao registrar os dados, por favor verifique e tente novamente."
+        messagebox.showinfo("Impossivel cadastrar.", msg)
 
-    cur.execute(sql)
 
     connection.commit()
     connection.close()
@@ -125,12 +132,19 @@ valor = select_data("tb_user")
 
 
 def prepara_import(table, df):
+    try:
+        id = 'id_' + table.split("_")[1]
+        df.drop([id], axis=1)
+        df = df.set_index(df.columns[0])
+        print(df)
+        for i in df.itertuples(index= False, name= None):
+            insert_data(table, list(i))
+        msg = "Os dados foram registrados com sucesso."
+        messagebox.showinfo("Dados inseridos.", msg)
+    except:
+        msg = "Erro ao registrar os dados, por favor verifique o formato do arquivo e tente novamente."
+        messagebox.showinfo("Impossivel importar.", msg)
 
-    id = 'id_' + table.split("_")[1]
-    df.drop([id], axis=1)
-    df = df.set_index(df.columns[0])
-    for i in df.itertuples(index= False, name= None):
-        insert_data(table, list(i))
 
 
 

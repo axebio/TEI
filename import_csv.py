@@ -79,9 +79,10 @@ class import_csv(tk.Frame):
 
 
         response = urllib.request.urlopen(url)
-
+ 
         if url[-4:] == ".csv":
             df = pd.read_csv(response)
+        
         elif url[-4:] == "json":
             df = pd.read_json(response)
 

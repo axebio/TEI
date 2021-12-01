@@ -67,7 +67,7 @@ class App(tk.Tk):
 
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame("login_page")
+        self.show_frame("import_csv")
 
     def show_frame(self, page_name):
         frame = self.frames[page_name]
