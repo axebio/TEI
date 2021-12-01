@@ -1,4 +1,3 @@
-from pandas.io import sql
 import psycopg2
 import pandas as pd
 import tkinter as tk
@@ -11,7 +10,7 @@ def connect():
         database = "dbcimbaajv8c3l",
         user = "cnucpvybbkkjsm",
         password = "d1a2f05ff9c28be1b7cc2321dc9bd6cfb4241ae1a1c9a903b59437f70083d7d3",
-        port = "5432",
+        port = "5432"
     )
     return connection
 
@@ -89,7 +88,7 @@ def insert_data(table, values):
     connection.close()
     
 
-	# Insert data into table
+
 
 def select_data(table, columns = "*"):
     connection = connect()
