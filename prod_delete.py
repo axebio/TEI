@@ -4,7 +4,7 @@ from function import refresh
 import sql
 import os
 
-class cli_delete(tk.Frame):
+class prod_delete(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -18,20 +18,20 @@ class cli_delete(tk.Frame):
         label.pack(side = "top", pady= 50)
 
         usuario = tk.Label(self, 
-                            text="ID do Cliente para excluir", 
+                            text="ID do produto para excluir", 
                             font= "Helvetica 11 bold", 
                             justify= "left", 
                             anchor= "w")
         usuario.pack(side="top")
 
-        campo_cliente = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
-        campo_cliente.pack(pady= 10)
+        campo_produto = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_produto.pack(pady= 10)
 
         excluir_button = tk.Button(self, 
                                 text="EXCLUIR", 
                                 width= 100, 
                                 height= 3,
-                                command=lambda: [sql.delete_data("tb_clientes", str(campo_cliente.get())),
+                                command=lambda: [sql.delete_data("tb_produtos", str(campo_produto.get())),
                                 clear_text()])
         excluir_button.pack(side = "top", padx= 20, pady= 5)
         
@@ -39,13 +39,13 @@ class cli_delete(tk.Frame):
                                     text="CONSULTAR", 
                                     width= 100, 
                                     height= 3,
-                                    command=lambda: controller.show_frame("cli_consulta"))
+                                    command=lambda: controller.show_frame("prod_consulta"))
         consultar_button.pack(side = "top", padx= 20, pady= 5)
 
-        voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_clientes"))
+        voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_produtos"))
         voltar_button.pack(side = "bottom", padx= 20, pady= 5)
 
         def clear_text():
-            campos = [campo_cliente]
+            campos = [campo_produto]
             for campo in campos:
                 campo.delete(0, "end")

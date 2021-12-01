@@ -18,7 +18,8 @@ def create_tables():
     connection = connect()
 
     tb_user = '''CREATE TABLE IF NOT EXISTS tb_user
-                        (id_user     VARCHAR(20),
+                        (index      SERIAL,
+                        id_user     VARCHAR(20),
                         senha       VARCHAR(12),
                         CONSTRAINT pk_tb_user PRIMARY KEY(id_user)
                         );
@@ -26,7 +27,7 @@ def create_tables():
 
 
     tb_clientes = '''CREATE TABLE IF NOT EXISTS tb_clientes
-                        (id_clientes            INTEGER,
+                        (id_clientes            SERIAL,
                         nome_cliente            VARCHAR(20),
                         tel_cliente             VARCHAR(11),
                         email_cliente           VARCHAR(30),
@@ -36,7 +37,7 @@ def create_tables():
                         '''
 
     tb_produtos = '''CREATE TABLE IF NOT EXISTS tb_produtos
-                        (id_produtos                     INTEGER,
+                        (id_produtos                     SERIAL,
                         nome_prod                        VARCHAR(30),
                         p_compra_prod                    VARCHAR(5),
                         p_venda_prod                     VARCHAR(5),
@@ -45,9 +46,19 @@ def create_tables():
                         );
                         '''
 
+    tb_funcionarios = '''CREATE TABLE IF NOT EXISTS tb_produtos
+                    (id_funcionarios                    SERIAL,
+                    nome_func                           VARCHAR(30),
+                    CPF                                 VARCHAR(11),
+                    dpto                                VARCHAR(5),
+                    funcao                              VARCHAR(4),
+                    CONSTRAINT pk_tb_funcionarios PRIMARY KEY(id_funcionarios)
+                    );
+                    '''
+
     cur = connection.cursor()
 
-    tables = [tb_user, tb_clientes, tb_produtos]
+    tables = [tb_user, tb_clientes, tb_produtos, tb_funcionarios]
     for i in tables:
         cur.execute(i)
 
@@ -59,9 +70,9 @@ def insert_data(table, values):
     cur = connection.cursor()
 
     sql = ""
-    sql = '''INSERT INTO {} VALUES ('''.format(table)
-    for i in values:
-        sql += ''' '{}', '''.format(i)
+    sql = '''INSERT INTO {} VALUES (DEFAULT, '''.format(table)
+    for i in range(len(values)):
+        sql += ''' '{}', '''.format(values[i])
     sql = sql[:-2]
     sql += ");"
 
@@ -133,6 +144,7 @@ def prepara_import(table, df):
 # df_clientes.to_csv("df_clientes", index= False)
 # df_clientes.to_json("df_clientes_json.json")
 
-df_user = select_data("tb_user")
-df_user.to_json("df_user_json.json")
-df_user.to_csv("df_user_csv.csv", index= False)
+# df_user = select_data("tb_user")
+# df_user.to_json("df_user_json.json")
+# df_user.to_csv("df_user_csv.csv", index= False)
+

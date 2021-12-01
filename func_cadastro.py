@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import ImageTk, Image
-from cli_consulta import *
+from func_consulta import *
 import os
 import sql
 import pandas as pd
@@ -8,21 +8,21 @@ import pandas as pd
 
 
 
-class cli_cadastro(tk.Frame):
+class func_cadastro(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
         titulo = tk.Label(self, 
-                    text="CADASTRO DE CLIENTES", 
+                    text="CADASTRO DE FUNCIONARIOS", 
                     font= "Helvetica 12 bold", 
                     justify= "left", 
                     anchor= "w")
         titulo.pack(side="top", pady=50)
 
         nome = tk.Label(self, 
-                            text="Nome do cliente", 
+                            text="Nome do funcionario", 
                             font= "Helvetica 12 bold", 
                             justify= "left", 
                             anchor= "w")
@@ -62,12 +62,11 @@ class cli_cadastro(tk.Frame):
         campo_end = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
         campo_end.pack(pady= 10)
 
-        voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_clientes"))
+        voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_funcionarios"))
         voltar_button.pack(side = "bottom", padx= 20, pady= 5)
         
         cadastrar_button = tk.Button(self, text="CADASTRAR", width= 100, height= 3, 
-                                    command=lambda: [sql.insert_data("tb_clientes", get_value()),
-                                    # controller.atualizar("cli_consulta", parent, controller),
+                                    command=lambda: [sql.insert_data("tb_funcionarios", get_value()),
                                     clear_text()])
         cadastrar_button.pack(side = "bottom", padx= 20, pady= 20)
 

@@ -22,6 +22,13 @@ class import_csv(tk.Frame):
         titulo = tk.Label(self, text= "MENU IMPORTAR DADOS", font= "Helvetica 12 bold")
         titulo.pack(side= "top", pady= 20)
 
+        cb_label = tk.Label(self, 
+                        text="Escolha o destino dos dados que serão importados.", 
+                        font="Helvetica 10 bold", 
+                        justify= "left", 
+                        anchor= "w")
+        cb_label.pack(side="bottom", pady= 20)
+
         opcoes = ["User", "Clientes", "Produtos", "Funcionarios", "Vendas"]
 
         cb = ttk.Combobox(self, 

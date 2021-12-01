@@ -1,17 +1,23 @@
 import tkinter as tk
 from PIL import ImageTk, Image
+from func_cadastro import *
+from func_consulta import *
+from func_delete import *
 from menu_func import *
 from menu_principal import *
 from menu_cliente import *
 from login_page import *
 from reg_user import reg_user
 from sobre_page import *
-from menu_produto import *
+from menu_produtos import *
 from menu_vendas import *
 from menu import *
 from import_csv import *
 from cli_delete import *
 from cli_cadastro import *
+from prod_cadastro import *
+from prod_consulta import *
+from prod_delete import *
 import os
 
 
@@ -44,28 +50,29 @@ class App(tk.Tk):
                     menu_produtos, 
                     menu_funcionarios, 
                     menu_vendas,
+                    reg_user,
                     import_csv,
                     cli_consulta,
                     cli_delete,
                     cli_cadastro,
-                    reg_user):
+                    prod_cadastro,
+                    prod_consulta,
+                    prod_delete,
+                    func_cadastro,
+                    func_consulta,
+                    func_delete):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
 
-            # put all of the pages in the same location;
-            # the one on the top of the stacking order
-            # will be the one that is visible.
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame("cli_consulta")
+        self.show_frame("login_page")
 
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         frame.tkraise()
-
-
-
+        
 
 if __name__ == "__main__":
     app = App()

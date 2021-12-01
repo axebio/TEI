@@ -8,21 +8,21 @@ import pandas as pd
 
 
 
-class cli_cadastro(tk.Frame):
+class prod_cadastro(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
         titulo = tk.Label(self, 
-                    text="CADASTRO DE CLIENTES", 
+                    text="CADASTRO DE PRODUTOS", 
                     font= "Helvetica 12 bold", 
                     justify= "left", 
                     anchor= "w")
         titulo.pack(side="top", pady=50)
 
         nome = tk.Label(self, 
-                            text="Nome do cliente", 
+                            text="Nome do Produto", 
                             font= "Helvetica 12 bold", 
                             justify= "left", 
                             anchor= "w")
@@ -33,7 +33,7 @@ class cli_cadastro(tk.Frame):
 
 
         telefone = tk.Label(self, 
-                        text="Telefone", 
+                        text="Preco de Compra", 
                         font="Helvetica 12 bold", 
                         justify= "left", 
                         anchor= "w")
@@ -43,7 +43,7 @@ class cli_cadastro(tk.Frame):
         campo_telefone.pack(pady= 10)
 
         email = tk.Label(self, 
-                text="E-Mail", 
+                text="Preco de Venda", 
                 font="Helvetica 12 bold", 
                 justify= "left", 
                 anchor= "w")
@@ -53,7 +53,7 @@ class cli_cadastro(tk.Frame):
         campo_email.pack(pady= 10)
 
         endereco = tk.Label(self, 
-                        text="Endereço", 
+                        text="Quantidade", 
                         font="Helvetica 12 bold", 
                         justify= "left", 
                         anchor= "w")
@@ -62,11 +62,11 @@ class cli_cadastro(tk.Frame):
         campo_end = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
         campo_end.pack(pady= 10)
 
-        voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_clientes"))
+        voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_produtos"))
         voltar_button.pack(side = "bottom", padx= 20, pady= 5)
         
         cadastrar_button = tk.Button(self, text="CADASTRAR", width= 100, height= 3, 
-                                    command=lambda: [sql.insert_data("tb_clientes", get_value()),
+                                    command=lambda: [sql.insert_data("tb_produtos", get_value()),
                                     # controller.atualizar("cli_consulta", parent, controller),
                                     clear_text()])
         cadastrar_button.pack(side = "bottom", padx= 20, pady= 20)
