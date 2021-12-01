@@ -17,6 +17,6 @@ class sobre_page(tk.Frame):
         nome = tk.Label(self, text= "Desenvolvido por: \n\nRafael Rossi Valentim\nRA: 2840482013009", justify= "left")
         nome.pack(side = "top", pady= 30)
         
-        button = tk.Button(self, text="Go to the start page",
-                           command=lambda: controller.show_frame("menu_principal"))
+        button = tk.Button(self, text="LOGOUT",
+                           command=lambda: controller.show_frame("login_page"))
         button.pack(side= "bottom", pady= 30)

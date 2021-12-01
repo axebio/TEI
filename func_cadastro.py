@@ -32,35 +32,35 @@ class func_cadastro(tk.Frame):
         campo_nome.pack(pady= 10)
 
 
-        telefone = tk.Label(self, 
-                        text="Telefone", 
+        cpf = tk.Label(self, 
+                        text="CPF", 
                         font="Helvetica 12 bold", 
                         justify= "left", 
                         anchor= "w")
+        cpf.pack(side="top")
+
+        campo_cpf = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_cpf.pack(pady= 10)
+
+        telefone = tk.Label(self, 
+                text="Telefone", 
+                font="Helvetica 12 bold", 
+                justify= "left", 
+                anchor= "w")
         telefone.pack(side="top")
 
         campo_telefone = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
         campo_telefone.pack(pady= 10)
 
-        email = tk.Label(self, 
-                text="E-Mail", 
-                font="Helvetica 12 bold", 
-                justify= "left", 
-                anchor= "w")
-        email.pack(side="top")
-
-        campo_email = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
-        campo_email.pack(pady= 10)
-
-        endereco = tk.Label(self, 
-                        text="Endereço", 
+        funcao = tk.Label(self, 
+                        text="Funcao", 
                         font="Helvetica 12 bold", 
                         justify= "left", 
                         anchor= "w")
-        endereco.pack(side="top")
+        funcao.pack(side="top")
 
-        campo_end = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
-        campo_end.pack(pady= 10)
+        campo_funcao = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_funcao.pack(pady= 10)
 
         voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_funcionarios"))
         voltar_button.pack(side = "bottom", padx= 20, pady= 5)
@@ -71,10 +71,10 @@ class func_cadastro(tk.Frame):
         cadastrar_button.pack(side = "bottom", padx= 20, pady= 20)
 
         def get_value():
-            return [campo_nome.get(), campo_telefone.get(), campo_email.get(), campo_end.get()]
+            return [campo_nome.get(), campo_cpf.get(), campo_telefone.get(), campo_funcao.get()]
 
 
         def clear_text():
-            campos = [campo_nome, campo_telefone, campo_email, campo_end]
+            campos = [campo_nome, campo_cpf, campo_telefone, campo_funcao]
             for campo in campos:
                 campo.delete(0, "end")

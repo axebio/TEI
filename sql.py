@@ -51,8 +51,8 @@ def create_tables():
                     (id_funcionarios                    SERIAL,
                     nome_func                           VARCHAR(30),
                     CPF                                 VARCHAR(11),
-                    dpto                                VARCHAR(5),
-                    funcao                              VARCHAR(4),
+                    Telefone                            VARCHAR(11),
+                    funcao                              VARCHAR(20),
                     CONSTRAINT pk_tb_funcionarios PRIMARY KEY(id_funcionarios)
                     );
                     '''
@@ -109,8 +109,14 @@ def delete_data(table, ID):
     
     id = 'id_' + table.split("_")[1]
     sql = '''DELETE FROM {} WHERE {} = '{}' '''.format(table, id, ID)
-
-    cur.execute(cur.mogrify(sql))
+    try:
+        cur.execute(cur.mogrify(sql))
+        msg = "Os dados foram apagados com sucesso."
+        messagebox.showinfo("Dados apagados.", msg)
+    except:
+        msg = "Erro ao apagar os dados, por favor verifique e tente novamente."
+        messagebox.showinfo("Impossivel apagar.", msg)
+    
     connection.commit()
     connection.close()
 
@@ -128,9 +134,6 @@ def verificar(user):
     connection.close()
     return senha
 
-valor = select_data("tb_user")
-
-
 def prepara_import(table, df):
     try:
         id = 'id_' + table.split("_")[1]
@@ -139,8 +142,6 @@ def prepara_import(table, df):
         print(df)
         for i in df.itertuples(index= False, name= None):
             insert_data(table, list(i))
-        msg = "Os dados foram registrados com sucesso."
-        messagebox.showinfo("Dados inseridos.", msg)
     except:
         msg = "Erro ao registrar os dados, por favor verifique o formato do arquivo e tente novamente."
         messagebox.showinfo("Impossivel importar.", msg)

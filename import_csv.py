@@ -98,7 +98,7 @@ class import_csv(tk.Frame):
         if self.filename[-4:] == ".csv":
             df = pd.read_csv(self.filename, index_col= False)
         elif self.filename[-4:] == "json":
-            df = pd.read_json(self.filename, index_col = False)
+            df = pd.read_json(self.filename)
 
         escolha = self.get_cb(escolha)
         sql.prepara_import(escolha, df)

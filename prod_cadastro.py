@@ -22,7 +22,7 @@ class prod_cadastro(tk.Frame):
         titulo.pack(side="top", pady=50)
 
         nome = tk.Label(self, 
-                            text="Nome do funcionario", 
+                            text="Nome do produto", 
                             font= "Helvetica 12 bold", 
                             justify= "left", 
                             anchor= "w")
@@ -31,36 +31,35 @@ class prod_cadastro(tk.Frame):
         campo_nome = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
         campo_nome.pack(pady= 10)
 
-
-        telefone = tk.Label(self, 
-                        text="CPF", 
+        compra = tk.Label(self, 
+                        text="Preco de Compra", 
                         font="Helvetica 12 bold", 
                         justify= "left", 
                         anchor= "w")
-        telefone.pack(side="top")
+        compra.pack(side="top")
 
-        campo_telefone = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
-        campo_telefone.pack(pady= 10)
+        campo_compra = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_compra.pack(pady= 10)
 
-        email = tk.Label(self, 
-                text="Departamento", 
+        venda = tk.Label(self, 
+                text="Preco de vendas", 
                 font="Helvetica 12 bold", 
                 justify= "left", 
                 anchor= "w")
-        email.pack(side="top")
+        venda.pack(side="top")
 
-        campo_email = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
-        campo_email.pack(pady= 10)
+        campo_venda = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_venda.pack(pady= 10)
 
-        endereco = tk.Label(self, 
-                        text="Funcao", 
+        qnt = tk.Label(self, 
+                        text="Quantidade", 
                         font="Helvetica 12 bold", 
                         justify= "left", 
                         anchor= "w")
-        endereco.pack(side="top")
+        qnt.pack(side="top")
 
-        campo_end = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
-        campo_end.pack(pady= 10)
+        campo_qnt = tk.Entry(self, width= 20, font= "Helvetica 12 bold")
+        campo_qnt.pack(pady= 10)
 
         voltar_button = tk.Button(self, text="VOLTAR", width= 100, height= 3, command= lambda: controller.show_frame("menu_produtos"))
         voltar_button.pack(side = "bottom", padx= 20, pady= 5)
@@ -72,10 +71,10 @@ class prod_cadastro(tk.Frame):
         cadastrar_button.pack(side = "bottom", padx= 20, pady= 20)
 
         def get_value():
-            return [campo_nome.get(), campo_telefone.get(), campo_email.get(), campo_end.get()]
+            return [campo_nome.get(), campo_compra.get(), campo_venda.get(), campo_qnt.get()]
 
 
         def clear_text():
-            campos = [campo_nome, campo_telefone, campo_email, campo_end]
+            campos = [campo_nome, campo_compra, campo_venda, campo_qnt]
             for campo in campos:
                 campo.delete(0, "end")
