@@ -1,6 +1,5 @@
 import tkinter as tk
 from PIL import ImageTk, Image
-from function import refresh
 import sql
 import os
 

@@ -1,7 +1,6 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 import os
-from import_csv import import_csv
 from menu_exportar import *
 
 

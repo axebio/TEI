@@ -1,8 +1,6 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 import os
-from cli_consulta import *
-import function as fc
 
 class menu_clientes(tk.Frame):
 

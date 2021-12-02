@@ -43,7 +43,8 @@ class App(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (login_page, 
+        for F in (
+                    login_page, 
                     menu_principal, 
                     sobre_page, 
                     menu_clientes, 
@@ -60,7 +61,8 @@ class App(tk.Tk):
                     prod_delete,
                     func_cadastro,
                     func_consulta,
-                    func_delete):
+                    func_delete
+                    ):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame

@@ -21,3 +21,4 @@ swiglpk==5.0.3
 update==0.0.1
 urllib3==1.26.6
 Werkzeug==2.0.2
+matplotlib==3.5.0

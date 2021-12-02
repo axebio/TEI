@@ -1,13 +1,10 @@
 import pandas as pd
 import urllib.request
 import tkinter as tk
-# from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
 import os
 from tkinter import filedialog
-
-
 import sql
 
 

@@ -4,24 +4,24 @@ import tkinter as tk
 from tkinter import messagebox
 
 
-def connect():
+def connect_sql():
     connection = psycopg2.connect(
-        host = "ec2-3-221-24-14.compute-1.amazonaws.com",
-        database = "dbcimbaajv8c3l",
-        user = "cnucpvybbkkjsm",
-        password = "d1a2f05ff9c28be1b7cc2321dc9bd6cfb4241ae1a1c9a903b59437f70083d7d3",
+        host = "ec2-34-195-69-118.compute-1.amazonaws.com",
+        database = "d9qjtrq9db67vk",
+        user = "iptfnyypxsvbqc",
+        password = "88feda52e1640bba0021fc5500804bcb42dd96aaa043229b980981623bff910f",
         port = "5432"
     )
     return connection
 
 def create_tables():
-    connection = connect()
+    connection = connect_sql()
 
     tb_user = '''CREATE TABLE IF NOT EXISTS tb_user
-                        (index      SERIAL,
-                        id_user     VARCHAR(20),
+                        (id_user      SERIAL,
+                        usuario     VARCHAR(20),
                         senha       VARCHAR(12),
-                        CONSTRAINT pk_tb_user PRIMARY KEY(id_user)
+                        CONSTRAINT pk_tb_user PRIMARY KEY(usuario)
                         );
                         '''
 
@@ -49,8 +49,8 @@ def create_tables():
     tb_funcionarios = '''CREATE TABLE IF NOT EXISTS tb_funcionarios
                     (id_funcionarios                    SERIAL,
                     nome_func                           VARCHAR(30),
-                    CPF                                 VARCHAR(11),
-                    Telefone                            VARCHAR(11),
+                    cpf                                 VARCHAR(11),
+                    telefone                            VARCHAR(11),
                     funcao                              VARCHAR(20),
                     CONSTRAINT pk_tb_funcionarios PRIMARY KEY(id_funcionarios)
                     );
@@ -59,6 +59,7 @@ def create_tables():
     cur = connection.cursor()
 
     tables = [tb_user, tb_clientes, tb_produtos, tb_funcionarios]
+
     for i in tables:
         cur.execute(i)
 
@@ -66,16 +67,18 @@ def create_tables():
     connection.close()
 
 def insert_data(table, values):
-    connection = connect()
-    cur = connection.cursor()
+    try:    
+        connection = connect_sql()
+        print(1)
+        cur = connection.cursor()
 
-    sql = ""
-    sql = '''INSERT INTO {} VALUES (DEFAULT, '''.format(table)
-    for i in range(len(values)):
-        sql += ''' '{}', '''.format(values[i])
-    sql = sql[:-2]
-    sql += ");"
-    try:
+        sql = ""
+        sql = '''INSERT INTO {} VALUES (DEFAULT, '''.format(table)
+        for i in range(len(values)):
+            sql += ''' '{}', '''.format(values[i])
+        sql = sql[:-2]
+        sql += ");"
+
         cur.execute(sql)
         msg = "Os dados foram registrados com sucesso."
         messagebox.showinfo("Dados inseridos.", msg)
@@ -87,9 +90,6 @@ def insert_data(table, values):
     connection.commit()
     connection.close()
     
-
-
-
 def select_data(table, columns = "*"):
     connection = connect()
     create_tables()
@@ -103,7 +103,7 @@ def select_data(table, columns = "*"):
     return df
 
 def delete_data(table, ID):
-    connection = connect()
+    connection = connect_sql()
     cur = connection.cursor()
     
     id = 'id_' + table.split("_")[1]
@@ -120,10 +120,10 @@ def delete_data(table, ID):
     connection.close()
 
 def verificar(user):
-    connection = connect()
+    connection = connect_sql()
     create_tables()
     #baixar valores do banco de dados
-    sql = '''SELECT senha FROM tb_user WHERE id_user = '{}';'''.format(user)
+    sql = '''SELECT senha FROM tb_user WHERE usuario = '{}';'''.format(user)
 
     cur = connection.cursor()
     cur.execute(sql)
@@ -147,4 +147,4 @@ def prepara_import(table, df):
 
 
 
-
+insert_data("tb_user", ['rafael', '1234'])

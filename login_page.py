@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import messagebox
-from tkinter.constants import S
 from PIL import ImageTk, Image
 from sql import *
 import os

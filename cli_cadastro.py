@@ -67,7 +67,6 @@ class cli_cadastro(tk.Frame):
         
         cadastrar_button = tk.Button(self, text="CADASTRAR", width= 100, height= 3, 
                                     command=lambda: [sql.insert_data("tb_clientes", get_value()),
-                                    # controller.atualizar("cli_consulta", parent, controller),
                                     clear_text()])
         cadastrar_button.pack(side = "bottom", padx= 20, pady= 20)
 
