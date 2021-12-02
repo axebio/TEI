@@ -2,6 +2,7 @@ import psycopg2
 import pandas as pd
 import tkinter as tk
 from tkinter import messagebox
+from matplotlib import *
 
 
 def connect_sql():
@@ -91,7 +92,7 @@ def insert_data(table, values):
     connection.close()
     
 def select_data(table, columns = "*"):
-    connection = connect()
+    connection = connect_sql()
     create_tables()
     #baixar valores do banco de dados
     sql = '''SELECT {} FROM {} ;'''.format(columns, table)
