@@ -2,27 +2,26 @@ import psycopg2
 import pandas as pd
 import tkinter as tk
 from tkinter import messagebox
-from matplotlib import *
 
 
-def connect_sql():
+def connect():
     connection = psycopg2.connect(
-        host = "ec2-34-195-69-118.compute-1.amazonaws.com",
-        database = "d9qjtrq9db67vk",
-        user = "iptfnyypxsvbqc",
-        password = "88feda52e1640bba0021fc5500804bcb42dd96aaa043229b980981623bff910f",
-        port = "5432"
+        host = "ec2-3-221-24-14.compute-1.amazonaws.com",
+        database = "dbcimbaajv8c3l",
+        user = "cnucpvybbkkjsm",
+        password = "d1a2f05ff9c28be1b7cc2321dc9bd6cfb4241ae1a1c9a903b59437f70083d7d3",
+        port = "5432",
     )
     return connection
 
 def create_tables():
-    connection = connect_sql()
+    connection = connect()
 
     tb_user = '''CREATE TABLE IF NOT EXISTS tb_user
                         (id_user      SERIAL,
                         usuario     VARCHAR(20),
                         senha       VARCHAR(12),
-                        CONSTRAINT pk_tb_user PRIMARY KEY(usuario)
+                        CONSTRAINT pk_tb_user PRIMARY KEY(id_user)
                         );
                         '''
 
@@ -50,9 +49,9 @@ def create_tables():
     tb_funcionarios = '''CREATE TABLE IF NOT EXISTS tb_funcionarios
                     (id_funcionarios                    SERIAL,
                     nome_func                           VARCHAR(30),
-                    cpf                                 VARCHAR(11),
-                    telefone                            VARCHAR(11),
-                    funcao                              VARCHAR(20),
+                    CPF                                 VARCHAR(11),
+                    dpto                                VARCHAR(5),
+                    funcao                              VARCHAR(4),
                     CONSTRAINT pk_tb_funcionarios PRIMARY KEY(id_funcionarios)
                     );
                     '''
@@ -60,7 +59,6 @@ def create_tables():
     cur = connection.cursor()
 
     tables = [tb_user, tb_clientes, tb_produtos, tb_funcionarios]
-
     for i in tables:
         cur.execute(i)
 
@@ -68,18 +66,16 @@ def create_tables():
     connection.close()
 
 def insert_data(table, values):
-    try:    
-        connection = connect_sql()
-        print(1)
-        cur = connection.cursor()
+    connection = connect()
+    cur = connection.cursor()
 
-        sql = ""
-        sql = '''INSERT INTO {} VALUES (DEFAULT, '''.format(table)
-        for i in range(len(values)):
-            sql += ''' '{}', '''.format(values[i])
-        sql = sql[:-2]
-        sql += ");"
-
+    sql = ""
+    sql = '''INSERT INTO {} VALUES (DEFAULT, '''.format(table)
+    for i in range(len(values)):
+        sql += ''' '{}', '''.format(values[i])
+    sql = sql[:-2]
+    sql += ");"
+    try:
         cur.execute(sql)
         msg = "Os dados foram registrados com sucesso."
         messagebox.showinfo("Dados inseridos.", msg)
@@ -91,8 +87,11 @@ def insert_data(table, values):
     connection.commit()
     connection.close()
     
+
+	# Insert data into table
+
 def select_data(table, columns = "*"):
-    connection = connect_sql()
+    connection = connect()
     create_tables()
     #baixar valores do banco de dados
     sql = '''SELECT {} FROM {} ;'''.format(columns, table)
@@ -104,24 +103,18 @@ def select_data(table, columns = "*"):
     return df
 
 def delete_data(table, ID):
-    connection = connect_sql()
+    connection = connect()
     cur = connection.cursor()
     
     id = 'id_' + table.split("_")[1]
     sql = '''DELETE FROM {} WHERE {} = '{}' '''.format(table, id, ID)
-    try:
-        cur.execute(cur.mogrify(sql))
-        msg = "Os dados foram apagados com sucesso."
-        messagebox.showinfo("Dados apagados.", msg)
-    except:
-        msg = "Erro ao apagar os dados, por favor verifique e tente novamente."
-        messagebox.showinfo("Impossivel apagar.", msg)
-    
+
+    cur.execute(cur.mogrify(sql))
     connection.commit()
     connection.close()
 
 def verificar(user):
-    connection = connect_sql()
+    connection = connect()
     create_tables()
     #baixar valores do banco de dados
     sql = '''SELECT senha FROM tb_user WHERE usuario = '{}';'''.format(user)
@@ -134,6 +127,9 @@ def verificar(user):
     connection.close()
     return senha
 
+valor = select_data("tb_user")
+
+
 def prepara_import(table, df):
     try:
         id = 'id_' + table.split("_")[1]
@@ -142,10 +138,8 @@ def prepara_import(table, df):
         print(df)
         for i in df.itertuples(index= False, name= None):
             insert_data(table, list(i))
+        msg = "Os dados foram registrados com sucesso."
+        messagebox.showinfo("Dados inseridos.", msg)
     except:
         msg = "Erro ao registrar os dados, por favor verifique o formato do arquivo e tente novamente."
         messagebox.showinfo("Impossivel importar.", msg)
-
-
-
-insert_data("tb_user", ['rafael', '1234'])
